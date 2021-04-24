@@ -21,7 +21,7 @@ class ListWidget extends StatelessWidget {
           itemBuilder: (context, index) {
             int itemsPerRow = MediaQuery.of(context).size.width.toInt() ~/ 200;
             double itemWidth = MediaQuery.of(context).size.width / itemsPerRow;
-            double itemHeight = itemWidth + 110.5;
+            double itemHeight = itemWidth + 120;
             String title = list[index].title;
             List<Item> items = list[index].items;
             return Column(

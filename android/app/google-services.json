@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1027573815498",
+    "firebase_url": "https://baby-list-7c215-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "baby-list-7c215",
+    "storage_bucket": "baby-list-7c215.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027573815498:android:d227ebe7d139b1700dbc33",
+        "android_client_info": {
+          "package_name": "com.rasers.baby_list"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027573815498-teb3rmm9cnffacfd4i1k2jt6n51dqhg8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rasers.baby_list",
+            "certificate_hash": "126f10cb5449403cc47a803efe1060b014aa5e28"
+          }
+        },
+        {
+          "client_id": "1027573815498-o10hef9qkra97mas6ae42eplr7jg6s9j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANLb33LSNBGgpO_LJ2-Q03fce_wyZaaIA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027573815498-o10hef9qkra97mas6ae42eplr7jg6s9j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
