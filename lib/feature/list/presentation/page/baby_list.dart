@@ -1,6 +1,5 @@
+import 'package:baby_list/core/navigation/list_arguments.dart';
 import 'package:baby_list/feature/list/domain/bloc/list_bloc.dart';
-import 'package:baby_list/feature/list/domain/bloc/event/list_event.dart';
-import 'package:baby_list/feature/list/domain/bloc/state/list_state.dart';
 import 'package:baby_list/feature/list/presentation/organism/list_widget.dart';
 import 'package:baby_list/get_it.dart';
 import 'package:baby_list/xds/template/frame.dart';
@@ -8,23 +7,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BabyList extends StatelessWidget {
-  BabyList({Key? key}) : super(key: key);
+  const BabyList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ListArguments? arguments =
+        ModalRoute.of(context)?.settings.arguments as ListArguments?;
     return BlocProvider(
-      create: (context) => getIt<ListBloc>()..add(Init()),
+      create: (context) => getIt<ListBloc>()..add(ListEvent.Init(arguments)),
       child: BlocBuilder<ListBloc, ListState>(
         builder: (context, state) {
           return Frame(
             title: state.when(
-              data: (list) => list.title,
+              data: (listId, list) => list.title,
               loading: () => '',
               error: (_) => 'Error',
             ),
             child: Center(
               child: state.when(
-                data: (list) => ListWidget(list: list.categories),
+                data: (listId, list) => ListWidget(
+                  listId: listId,
+                  list: list.categories,
+                ),
                 loading: () => Center(child: CircularProgressIndicator()),
                 error: (error) => Center(child: Text(error.toString())),
               ),

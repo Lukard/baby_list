@@ -1,3 +1,5 @@
+import 'package:baby_list/core/error/error_notifier.dart';
+import 'package:baby_list/get_it.dart';
 import 'package:flutter/material.dart';
 
 class Frame extends StatelessWidget {
@@ -9,12 +11,9 @@ class Frame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Baby list',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
+    return ScaffoldMessenger(
+      key: getIt<ErrorNotifier>().generateNewKey(),
+      child: Scaffold(
         appBar: AppBar(
           title: Text(title),
         ),

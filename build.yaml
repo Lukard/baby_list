@@ -1,8 +1,11 @@
 targets:
   $default:
     builders:
+      json_serializable:
+        options:
+          explicit_to_json: true
       injectable_generator:injectable_builder:
         options:
           auto_register: true
-          class_name_pattern: "DataSource$|Bloc$"
-          file_name_pattern: "_data_source$|_bloc$"
+          class_name_pattern: "DataSource$|Bloc$|Cubit$"
+          file_name_pattern: "_data_source$|_bloc$|_cubit$"
