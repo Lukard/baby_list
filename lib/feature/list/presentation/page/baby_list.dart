@@ -13,8 +13,9 @@ class BabyList extends StatelessWidget {
   Widget build(BuildContext context) {
     ListArguments? arguments =
         ModalRoute.of(context)?.settings.arguments as ListArguments?;
+    ListBloc bloc = getIt<ListBloc>()..add(ListEvent.Init(arguments));
     return BlocProvider(
-      create: (context) => getIt<ListBloc>()..add(ListEvent.Init(arguments)),
+      create: (context) => bloc,
       child: BlocBuilder<ListBloc, ListState>(
         builder: (context, state) {
           return Frame(
@@ -26,8 +27,9 @@ class BabyList extends StatelessWidget {
             child: Center(
               child: state.when(
                 data: (listId, list) => ListWidget(
-                  listId: listId,
                   list: list.categories,
+                  onItemTap: (item) =>
+                      bloc.add(ListEvent.ItemTap(listId, item)),
                 ),
                 loading: () => Center(child: CircularProgressIndicator()),
                 error: (error) => Center(child: Text(error.toString())),

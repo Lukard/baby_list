@@ -19,21 +19,17 @@ class ListBloc extends Bloc<ListEvent, ListState> {
   final ListDataSource _listDataSource;
   final GlobalKey<NavigatorState> _navigatorKey;
 
+  StreamSubscription<BabyList>? _streamSubscription;
+
   ListBloc(this._authDataSource, this._listDataSource, this._navigatorKey)
       : super(ListState.loading());
 
   @override
   Stream<ListState> mapEventToState(ListEvent event) async* {
     yield* event.when(
-      Init: (arguments) async* {
-        yield* _mapGetListToState(arguments);
-      },
-      ItemTap: (String listId, Item item) async* {
-        _navigatorKey.currentState?.pushNamed(
-          NavigationPath.Detail,
-          arguments: DetailArguments(listId, item),
-        );
-      },
+      Init: _mapGetListToState,
+      DataReceived: _mapDataReceivedEventToState,
+      ItemTap: _mapItemTapEventToState,
     );
   }
 
@@ -49,9 +45,30 @@ class ListBloc extends Bloc<ListEvent, ListState> {
         (route) => false,
       );
     } else {
-      yield* _listDataSource
+      _streamSubscription?.cancel();
+      _streamSubscription = _listDataSource
           .getList(arguments.id)
-          .asyncMap((event) => ListState.data(arguments.id, event));
+          .listen((list) => add(ListEvent.DataReceived(arguments.id, list)));
     }
+  }
+
+  Stream<ListState> _mapDataReceivedEventToState(
+    String listId,
+    BabyList list,
+  ) async* {
+    yield ListState.data(listId, list);
+  }
+
+  Stream<ListState> _mapItemTapEventToState(String listId, Item item) async* {
+    _navigatorKey.currentState?.pushNamed(
+      NavigationPath.Detail,
+      arguments: DetailArguments(listId, item),
+    );
+  }
+
+  @override
+  Future<void> close() {
+    _streamSubscription?.cancel();
+    return super.close();
   }
 }

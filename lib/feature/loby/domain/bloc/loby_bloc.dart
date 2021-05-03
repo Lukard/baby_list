@@ -58,7 +58,8 @@ class LobyBloc extends Bloc<LobyEvent, LobyState> {
     bool listExist = false;
     try {
       listExist = await _listDataSource.doesListExist(listCode);
-    } catch (_) {
+    } catch (error) {
+      print(error);
       listExist = false;
     }
     if (listExist) {
