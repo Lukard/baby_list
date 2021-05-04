@@ -19,14 +19,10 @@ class BabyList extends StatelessWidget {
       child: BlocBuilder<ListBloc, ListState>(
         builder: (context, state) {
           return Frame(
-            title: state.when(
-              data: (listId, list) => list.title,
-              loading: () => '',
-              error: (_) => 'Error',
-            ),
             child: Center(
               child: state.when(
                 data: (listId, list) => ListWidget(
+                  title: list.title,
                   list: list.categories,
                   onItemTap: (item) =>
                       bloc.add(ListEvent.ItemTap(listId, item)),

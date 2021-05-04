@@ -15,7 +15,7 @@ class Loby extends StatelessWidget {
     return BlocProvider(
       create: (context) => bloc,
       child: Frame(
-        title: '¿Qué quieres hacer?',
+        //title: '¿Qué quieres hacer?',
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

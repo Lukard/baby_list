@@ -15,7 +15,7 @@ class Welcome extends StatelessWidget {
     return BlocProvider(
       create: (context) => bloc,
       child: Frame(
-        title: 'Encantado de concerte',
+        //title: 'Encantado de concerte',
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

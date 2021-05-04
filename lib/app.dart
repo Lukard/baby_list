@@ -5,6 +5,7 @@ import 'package:baby_list/feature/loby/presentation/page/loby.dart';
 import 'package:baby_list/feature/splash/presentation/page/splash.dart';
 import 'package:baby_list/feature/welcome/presentation/page/welcome.dart';
 import 'package:baby_list/get_it.dart';
+import 'package:baby_list/xds/theme/xds_theme.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -14,9 +15,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Baby list',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: theme,
       navigatorKey: getIt<GlobalKey<NavigatorState>>(),
       initialRoute: NavigationPath.Splash,
       routes: {

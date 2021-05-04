@@ -15,10 +15,10 @@ import 'core/data/datasource/list_data_source.dart' as _i3;
 import 'core/di/error_module.dart' as _i14;
 import 'core/di/firebase_module.dart' as _i15;
 import 'core/di/navigation_module.dart' as _i16;
-import 'core/error/error_notifier.dart' as _i11;
+import 'core/error/error_notifier.dart' as _i9;
 import 'feature/detail/domain/bloc/detail_bloc.dart' as _i7;
-import 'feature/list/domain/bloc/list_bloc.dart' as _i9;
-import 'feature/loby/domain/bloc/loby_bloc.dart' as _i10;
+import 'feature/list/domain/bloc/list_bloc.dart' as _i10;
+import 'feature/loby/domain/bloc/loby_bloc.dart' as _i11;
 import 'feature/splash/domain/cubit/splash_cubit.dart' as _i12;
 import 'feature/welcome/domain/bloc/welcome_bloc.dart'
     as _i13; // ignore_for_file: unnecessary_lambdas
@@ -35,20 +35,23 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i3.ListDataSource(get<_i4.FirebaseFirestore>()));
   gh.factory<_i5.AuthDataSource>(
       () => _i5.AuthDataSource(get<_i6.FirebaseAuth>()));
-  gh.factory<_i7.DetailBloc>(() => _i7.DetailBloc(get<_i5.AuthDataSource>(),
-      get<_i3.ListDataSource>(), get<_i8.GlobalKey<_i8.NavigatorState>>()));
-  gh.factory<_i9.ListBloc>(() => _i9.ListBloc(get<_i5.AuthDataSource>(),
-      get<_i3.ListDataSource>(), get<_i8.GlobalKey<_i8.NavigatorState>>()));
-  gh.factory<_i10.LobyBloc>(() => _i10.LobyBloc(
+  gh.factory<_i7.DetailBloc>(() => _i7.DetailBloc(
       get<_i5.AuthDataSource>(),
       get<_i3.ListDataSource>(),
       get<_i8.GlobalKey<_i8.NavigatorState>>(),
-      get<_i11.ErrorNotifier>()));
+      get<_i9.ErrorNotifier>()));
+  gh.factory<_i10.ListBloc>(() => _i10.ListBloc(get<_i5.AuthDataSource>(),
+      get<_i3.ListDataSource>(), get<_i8.GlobalKey<_i8.NavigatorState>>()));
+  gh.factory<_i11.LobyBloc>(() => _i11.LobyBloc(
+      get<_i5.AuthDataSource>(),
+      get<_i3.ListDataSource>(),
+      get<_i8.GlobalKey<_i8.NavigatorState>>(),
+      get<_i9.ErrorNotifier>()));
   gh.factory<_i12.SplashCubit>(() => _i12.SplashCubit(
       get<_i5.AuthDataSource>(), get<_i8.GlobalKey<_i8.NavigatorState>>()));
   gh.factory<_i13.WelcomeBloc>(() => _i13.WelcomeBloc(
       get<_i5.AuthDataSource>(), get<_i8.GlobalKey<_i8.NavigatorState>>()));
-  gh.singleton<_i11.ErrorNotifier>(errorModule.errorNotifier);
+  gh.singleton<_i9.ErrorNotifier>(errorModule.errorNotifier);
   gh.singleton<_i6.FirebaseAuth>(firebaseModule.auth);
   gh.singleton<_i4.FirebaseFirestore>(firebaseModule.firestore);
   gh.singleton<_i8.GlobalKey<_i8.NavigatorState>>(

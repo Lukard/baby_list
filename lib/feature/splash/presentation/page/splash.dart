@@ -15,7 +15,6 @@ class Splash extends StatelessWidget {
     return BlocProvider(
       create: (context) => cubit,
       child: Frame(
-        title: '¡Hola!',
         child: Center(
           child: CircularProgressIndicator(),
         ),

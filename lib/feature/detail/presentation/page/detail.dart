@@ -19,21 +19,26 @@ class Detail extends StatelessWidget {
         builder: (context, state) {
           return state.when(initial: () {
             return Frame(
-              title: 'Detalle',
               child: Center(
                 child: CircularProgressIndicator(),
               ),
             );
           }, booking: (item) {
-            return DetailTemplate(
-              item: item,
-              isBooking: true,
+            return Frame(
+              child: DetailTemplate(
+                item: item,
+                isBooking: true,
+              ),
             );
           }, data: (item) {
-            return DetailTemplate(
-              item: item,
-              isBooking: false,
-              onBook: () => bloc.add(DetailEvent.booked(item)),
+            return Frame(
+              child: DetailTemplate(
+                item: item,
+                isBooking: false,
+                onBook: () => bloc.add(DetailEvent.booked(item)),
+                onMoreInfo: () =>
+                    bloc.add(DetailEvent.moreInformation(item.link)),
+              ),
             );
           });
         },
