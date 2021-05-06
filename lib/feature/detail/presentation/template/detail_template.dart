@@ -51,9 +51,12 @@ class DetailTemplate extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline1,
                     ),
                     item.description != null
-                        ? Text(
-                            item.description!,
-                            style: Theme.of(context).textTheme.bodyText2,
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Text(
+                              item.description!,
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
                           )
                         : Container(),
                     Padding(

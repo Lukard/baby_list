@@ -10,11 +10,20 @@ ThemeData theme = ThemeData(
   textTheme: TextTheme(
     headline1: TextStyle(
       color: Colors.black87,
-      fontSize: 32.0,
+      fontSize: 48.0,
+    ),
+    headline3: TextStyle(
+      fontSize: 28,
+      fontWeight: FontWeight.bold,
     ),
     headline4: TextStyle(
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
+    ),
+    headline5: TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.black54,
     ),
     bodyText1: TextStyle(
       color: Colors.black87,
@@ -25,6 +34,7 @@ ThemeData theme = ThemeData(
       color: Colors.black54,
       fontSize: 14.0,
       fontWeight: FontWeight.normal,
+      height: 1.25,
     ),
     button: TextStyle(
       color: Colors.black54,
