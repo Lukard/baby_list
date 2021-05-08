@@ -4,6 +4,7 @@ part of 'baby_list.dart';
 class Item with _$Item {
   const Item._();
   const factory Item(
+    String id,
     String title,
     String image,
     String? description,

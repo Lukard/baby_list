@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:baby_list/core/data/datasource/auth_data_source.dart';
 import 'package:baby_list/core/data/datasource/list_data_source.dart';
 import 'package:baby_list/core/error/error_notifier.dart';
-import 'package:baby_list/core/navigation/list_arguments.dart';
 import 'package:baby_list/core/navigation/navigation_path.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -59,13 +58,11 @@ class LobyBloc extends Bloc<LobyEvent, LobyState> {
     try {
       listExist = await _listDataSource.doesListExist(listCode);
     } catch (error) {
-      print(error);
       listExist = false;
     }
     if (listExist) {
       _navigatorKey.currentState?.pushNamed(
-        NavigationPath.List,
-        arguments: ListArguments(listCode),
+        "${NavigationPath.List}/$listCode",
       );
     } else {
       _errorNotifier.showError('¡No hay ninguna lista con ese código!');

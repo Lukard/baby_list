@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:baby_list/core/data/datasource/auth_data_source.dart';
 import 'package:baby_list/core/data/datasource/list_data_source.dart';
-import 'package:baby_list/core/navigation/detail_arguments.dart';
-import 'package:baby_list/core/navigation/list_arguments.dart';
 import 'package:baby_list/core/navigation/navigation_path.dart';
 import 'package:baby_list/core/domain/model/baby_list.dart';
 import 'package:bloc/bloc.dart';
@@ -33,22 +31,17 @@ class ListBloc extends Bloc<ListEvent, ListState> {
     );
   }
 
-  Stream<ListState> _mapGetListToState(ListArguments? arguments) async* {
+  Stream<ListState> _mapGetListToState(String listId) async* {
     if (!_authDataSource.isUserLoggedIn()) {
       _navigatorKey.currentState?.pushNamedAndRemoveUntil(
         NavigationPath.Welcome,
         (route) => false,
       );
-    } else if (arguments == null) {
-      _navigatorKey.currentState?.pushNamedAndRemoveUntil(
-        NavigationPath.Loby,
-        (route) => false,
-      );
     } else {
       _streamSubscription?.cancel();
       _streamSubscription = _listDataSource
-          .getList(arguments.id)
-          .listen((list) => add(ListEvent.DataReceived(arguments.id, list)));
+          .getList(listId)
+          .listen((list) => add(ListEvent.DataReceived(listId, list)));
     }
   }
 
@@ -60,10 +53,8 @@ class ListBloc extends Bloc<ListEvent, ListState> {
   }
 
   Stream<ListState> _mapItemTapEventToState(String listId, Item item) async* {
-    _navigatorKey.currentState?.pushNamed(
-      NavigationPath.Detail,
-      arguments: DetailArguments(listId, item),
-    );
+    _navigatorKey.currentState
+        ?.pushNamed("${NavigationPath.List}/$listId/detail/${item.id}");
   }
 
   @override

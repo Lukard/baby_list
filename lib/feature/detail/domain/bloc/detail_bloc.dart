@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:baby_list/core/data/datasource/auth_data_source.dart';
 import 'package:baby_list/core/data/datasource/list_data_source.dart';
 import 'package:baby_list/core/error/error_notifier.dart';
-import 'package:baby_list/core/navigation/detail_arguments.dart';
 import 'package:baby_list/core/navigation/navigation_path.dart';
 import 'package:baby_list/core/domain/model/baby_list.dart';
 import 'package:bloc/bloc.dart';
@@ -21,7 +20,6 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   final GlobalKey<NavigatorState> _navigatorKey;
   final ErrorNotifier _errorNotifier;
 
-  DetailArguments? _arguments;
   StreamSubscription<Item>? _streamSubscription;
 
   DetailBloc(
@@ -42,32 +40,29 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   }
 
   Stream<DetailState> _mapStartedEventToState(
-    DetailArguments? arguments,
+    String listId,
+    String itemId,
   ) async* {
     if (!_authDataSource.isUserLoggedIn()) {
       _navigatorKey.currentState?.pushNamedAndRemoveUntil(
         NavigationPath.Welcome,
         (route) => false,
       );
-    } else if (arguments == null) {
-      _navigatorKey.currentState?.pushNamedAndRemoveUntil(
-        NavigationPath.Loby,
-        (route) => false,
-      );
     } else {
-      _arguments = arguments;
       _streamSubscription?.cancel();
       _streamSubscription = _listDataSource
-          .getList(arguments.listId)
+          .getList(listId)
           .expand((list) => list.categories)
           .expand((category) => category.items)
-          .where((item) => item.title == arguments.item.title)
-          .listen((item) => add(DetailEvent.loaded(item)));
+          .where((item) => item.id == itemId)
+          .listen(
+            (item) => add(DetailEvent.loaded(listId: listId, item: item)),
+          );
     }
   }
 
-  Stream<DetailState> _mapLoadedEventToState(Item item) async* {
-    yield DetailState.data(item);
+  Stream<DetailState> _mapLoadedEventToState(String listId, Item item) async* {
+    yield DetailState.data(listId: listId, item: item);
   }
 
   Stream<DetailState> _mapMoreInformationEventToState(String link) async* {
@@ -79,10 +74,10 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     }
   }
 
-  Stream<DetailState> _mapBookedEventToState(Item item) async* {
+  Stream<DetailState> _mapBookedEventToState(String listId, Item item) async* {
     yield DetailState.booking(item);
     Booking booking = _authDataSource.getBooking();
-    await _listDataSource.bookItem(_arguments!.listId, item, booking);
+    await _listDataSource.bookItem(listId, item, booking);
   }
 
   @override
