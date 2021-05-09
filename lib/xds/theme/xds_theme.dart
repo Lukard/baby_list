@@ -7,6 +7,7 @@ ThemeData theme = ThemeData(
   primaryColor: Color.fromARGB(255, 242, 194, 194),
   accentColor: Color.fromARGB(255, 255, 219, 219),
   canvasColor: Color.fromARGB(255, 245, 228, 220),
+  cardColor: Color.fromARGB(255, 245, 228, 220),
   textTheme: TextTheme(
     headline1: TextStyle(
       color: Colors.black87,
