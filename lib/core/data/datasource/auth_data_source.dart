@@ -6,7 +6,14 @@ class AuthDataSource {
 
   AuthDataSource(this._auth);
 
-  bool isUserLoggedIn() => _auth.currentUser != null;
+  Future<bool> isUserLoggedIn() {
+    if (_auth.currentUser != null) return Future<bool>.value(true);
+
+    return _auth.authStateChanges().first.then(
+          (user) => user != null,
+          onError: () => false,
+        );
+  }
 
   Stream<User> anonymousLogin(String displayName) {
     return _auth.signInAnonymously().asStream().asyncMap((userCreadential) {

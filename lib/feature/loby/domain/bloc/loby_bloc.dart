@@ -39,12 +39,14 @@ class LobyBloc extends Bloc<LobyEvent, LobyState> {
   }
 
   Stream<LobyState> _mapInitEventToState() async* {
-    if (!_authDataSource.isUserLoggedIn()) {
-      _navigatorKey.currentState?.pushNamedAndRemoveUntil(
-        NavigationPath.Welcome,
-        (route) => false,
-      );
-    }
+    _authDataSource.isUserLoggedIn().then((isUserLoggedIn) {
+      if (!isUserLoggedIn) {
+        _navigatorKey.currentState?.pushNamedAndRemoveUntil(
+          NavigationPath.Welcome,
+          (route) => false,
+        );
+      }
+    });
   }
 
   Stream<LobyState> _mapListCodeTypedEventToState(String code) async* {

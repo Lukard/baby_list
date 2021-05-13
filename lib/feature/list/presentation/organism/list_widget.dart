@@ -84,6 +84,7 @@ class ListWidget extends StatelessWidget {
                 ),
               ),
               GridView.count(
+                primary: false,
                 padding: EdgeInsets.all(0),
                 shrinkWrap: true,
                 childAspectRatio: itemWidth / itemHeight,

@@ -43,22 +43,24 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     String listId,
     String itemId,
   ) async* {
-    if (!_authDataSource.isUserLoggedIn()) {
-      _navigatorKey.currentState?.pushNamedAndRemoveUntil(
-        NavigationPath.Welcome,
-        (route) => false,
-      );
-    } else {
-      _streamSubscription?.cancel();
-      _streamSubscription = _listDataSource
-          .getList(listId)
-          .expand((list) => list.categories)
-          .expand((category) => category.items)
-          .where((item) => item.id == itemId)
-          .listen(
-            (item) => add(DetailEvent.loaded(listId: listId, item: item)),
-          );
-    }
+    _authDataSource.isUserLoggedIn().then((isUserLoggedIn) {
+      if (!isUserLoggedIn) {
+        _navigatorKey.currentState?.pushNamedAndRemoveUntil(
+          NavigationPath.Welcome,
+          (route) => false,
+        );
+      } else {
+        _streamSubscription?.cancel();
+        _streamSubscription = _listDataSource
+            .getList(listId)
+            .expand((list) => list.categories)
+            .expand((category) => category.items)
+            .where((item) => item.id == itemId)
+            .listen(
+              (item) => add(DetailEvent.loaded(listId: listId, item: item)),
+            );
+      }
+    });
   }
 
   Stream<DetailState> _mapLoadedEventToState(String listId, Item item) async* {

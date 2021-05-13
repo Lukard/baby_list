@@ -32,17 +32,19 @@ class ListBloc extends Bloc<ListEvent, ListState> {
   }
 
   Stream<ListState> _mapGetListToState(String listId) async* {
-    if (!_authDataSource.isUserLoggedIn()) {
-      _navigatorKey.currentState?.pushNamedAndRemoveUntil(
-        NavigationPath.Welcome,
-        (route) => false,
-      );
-    } else {
-      _streamSubscription?.cancel();
-      _streamSubscription = _listDataSource
-          .getList(listId)
-          .listen((list) => add(ListEvent.DataReceived(listId, list)));
-    }
+    _authDataSource.isUserLoggedIn().then((isUserLoggedIn) {
+      if (!isUserLoggedIn) {
+        _navigatorKey.currentState?.pushNamedAndRemoveUntil(
+          NavigationPath.Welcome,
+          (route) => false,
+        );
+      } else {
+        _streamSubscription?.cancel();
+        _streamSubscription = _listDataSource
+            .getList(listId)
+            .listen((list) => add(ListEvent.DataReceived(listId, list)));
+      }
+    });
   }
 
   Stream<ListState> _mapDataReceivedEventToState(

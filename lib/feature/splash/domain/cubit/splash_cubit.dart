@@ -15,9 +15,11 @@ class SplashCubit extends Cubit<SplashState> {
       : super(SplashState.loading());
 
   void checkUserLoggedIn() {
-    String path = _authDataSource.isUserLoggedIn()
-        ? NavigationPath.Loby
-        : NavigationPath.Welcome;
-    _navigatorKey.currentState?.pushNamedAndRemoveUntil(path, (route) => false);
+    _authDataSource.isUserLoggedIn().then((isUserLoggedIn) {
+      String path =
+          isUserLoggedIn ? NavigationPath.Loby : NavigationPath.Welcome;
+      _navigatorKey.currentState
+          ?.pushNamedAndRemoveUntil(path, (route) => false);
+    });
   }
 }
