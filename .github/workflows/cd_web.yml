@@ -19,7 +19,7 @@ jobs:
       - name: Get packages
         run: flutter pub get
       - name: Execute build runner
-        run: flutter pub run build_runner build
+        run: flutter pub run build_runner build --delete-conflicting-outputs
       - name: Build release version
         run: flutter build web --release
       - name: Deploy to Github Pages
