@@ -10,6 +10,7 @@ class StadiumLabelRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       spacing: 8.0,
+      runSpacing: 8.0,
       children: List.generate(
         texts.length,
         (index) => StadiumLabel(text: texts[index]),

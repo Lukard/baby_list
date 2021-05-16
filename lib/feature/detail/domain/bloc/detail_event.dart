@@ -15,4 +15,8 @@ class DetailEvent with _$DetailEvent {
     required String listId,
     required Item item,
   }) = _Booked;
+  const factory DetailEvent.discarded({
+    required String listId,
+    required Item item,
+  }) = _Discarded;
 }

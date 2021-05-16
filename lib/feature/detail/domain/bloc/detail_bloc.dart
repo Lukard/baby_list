@@ -36,6 +36,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
       loaded: _mapLoadedEventToState,
       moreInformation: _mapMoreInformationEventToState,
       booked: _mapBookedEventToState,
+      discarded: _mapDiscardedEventToState,
     );
   }
 
@@ -64,7 +65,14 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   }
 
   Stream<DetailState> _mapLoadedEventToState(String listId, Item item) async* {
-    yield DetailState.data(listId: listId, item: item);
+    String userId = _authDataSource.getUserId();
+    bool didAtLeastOneBooking =
+        item.bookings?.any((booking) => booking.uid == userId) ?? false;
+    yield DetailState.data(
+      listId: listId,
+      item: item,
+      didAtLeastOneBooking: didAtLeastOneBooking,
+    );
   }
 
   Stream<DetailState> _mapMoreInformationEventToState(String link) async* {
@@ -80,6 +88,15 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     yield DetailState.booking(item);
     Booking booking = _authDataSource.getBooking();
     await _listDataSource.bookItem(listId, item, booking);
+  }
+
+  Stream<DetailState> _mapDiscardedEventToState(
+    String listId,
+    Item item,
+  ) async* {
+    yield DetailState.booking(item);
+    Booking booking = _authDataSource.getBooking();
+    await _listDataSource.discardItemBooking(listId, item.id, booking);
   }
 
   @override

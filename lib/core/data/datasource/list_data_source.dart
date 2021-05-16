@@ -58,4 +58,39 @@ class ListDataSource {
       await _firestore.collection('list').doc(id).set(json);
     }
   }
+
+  Future<void> discardItemBooking(
+    String listId,
+    String itemId,
+    Booking userBooking,
+  ) async {
+    BabyList resultingList = await _firestore
+        .collection('list')
+        .doc(listId)
+        .get()
+        .then((snapshot) => snapshot.data()!)
+        .then((data) => BabyList.fromJson(data))
+        .then((list) {
+      List<Category> categories = list.categories.map((category) {
+        List<Item> items = category.items.map((item) {
+          if (item.id == itemId) {
+            item.bookings?.remove(userBooking);
+            List<Booking>? bookings = item.bookings;
+            if (bookings?.length == 0) bookings = null;
+
+            return item.copyWith(bookings: bookings);
+          } else {
+            return item;
+          }
+        }).toList();
+
+        return category.copyWith(items: items);
+      }).toList();
+
+      return list.copyWith(categories: categories);
+    });
+
+    Map<String, dynamic> json = resultingList.toJson();
+    await _firestore.collection('list').doc(listId).set(json);
+  }
 }

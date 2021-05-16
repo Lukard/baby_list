@@ -27,4 +27,6 @@ class AuthDataSource {
         _auth.currentUser!.uid,
         _auth.currentUser!.displayName!,
       );
+
+  String getUserId() => _auth.currentUser!.uid;
 }

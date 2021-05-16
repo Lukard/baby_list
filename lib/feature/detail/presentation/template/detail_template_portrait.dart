@@ -6,14 +6,18 @@ import 'package:flutter/material.dart';
 class DetailTemplatePortrait extends StatelessWidget {
   final Item item;
   final bool isBooking;
+  final bool didAtLeastOneBooking;
   final VoidCallback? onBook;
+  final VoidCallback? onDiscard;
   final VoidCallback? onMoreInfo;
 
   const DetailTemplatePortrait({
     Key? key,
     required this.item,
     required this.isBooking,
+    required this.didAtLeastOneBooking,
     this.onBook,
+    this.onDiscard,
     this.onMoreInfo,
   }) : super(key: key);
 
@@ -45,7 +49,9 @@ class DetailTemplatePortrait extends StatelessWidget {
                   child: ItemColumn(
                     item: item,
                     isBooking: isBooking,
+                    didAtLeastOneBooking: didAtLeastOneBooking,
                     onBook: onBook,
+                    onDiscard: onDiscard,
                     onMoreInfo: onMoreInfo,
                   )),
             ),

@@ -34,15 +34,19 @@ class Detail extends StatelessWidget {
               child: DetailTemplate(
                 item: item,
                 isBooking: true,
+                didAtLeastOneBooking: false,
               ),
             );
-          }, data: (listId, item) {
+          }, data: (listId, item, didAtLeastOneBooking) {
             return Frame(
               child: DetailTemplate(
                 item: item,
                 isBooking: false,
+                didAtLeastOneBooking: didAtLeastOneBooking,
                 onBook: () =>
                     bloc.add(DetailEvent.booked(listId: listId, item: item)),
+                onDiscard: () =>
+                    bloc.add(DetailEvent.discarded(listId: listId, item: item)),
                 onMoreInfo: () =>
                     bloc.add(DetailEvent.moreInformation(item.link)),
               ),

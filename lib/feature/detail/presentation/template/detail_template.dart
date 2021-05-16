@@ -6,14 +6,18 @@ import 'package:flutter/material.dart';
 class DetailTemplate extends StatelessWidget {
   final Item item;
   final bool isBooking;
+  final bool didAtLeastOneBooking;
   final VoidCallback? onBook;
+  final VoidCallback? onDiscard;
   final VoidCallback? onMoreInfo;
 
   const DetailTemplate({
     Key? key,
     required this.item,
     required this.isBooking,
+    required this.didAtLeastOneBooking,
     this.onBook,
+    this.onDiscard,
     this.onMoreInfo,
   }) : super(key: key);
 
@@ -28,14 +32,18 @@ class DetailTemplate extends StatelessWidget {
       return DetailTemplatePortrait(
         item: item,
         isBooking: isBooking,
+        didAtLeastOneBooking: didAtLeastOneBooking,
         onBook: onBook,
+        onDiscard: onDiscard,
         onMoreInfo: onMoreInfo,
       );
     } else {
       return DetailTemplateLandscape(
         item: item,
         isBooking: isBooking,
+        didAtLeastOneBooking: didAtLeastOneBooking,
         onBook: onBook,
+        onDiscard: onDiscard,
         onMoreInfo: onMoreInfo,
       );
     }

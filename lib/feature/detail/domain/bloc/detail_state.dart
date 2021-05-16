@@ -7,5 +7,6 @@ class DetailState with _$DetailState {
   const factory DetailState.data({
     required String listId,
     required Item item,
+    required bool didAtLeastOneBooking,
   }) = _Data;
 }
