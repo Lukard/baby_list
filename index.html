@@ -29,7 +29,13 @@
   <title>baby_list</title>
   <link rel="manifest" href="manifest.json">
 </head>
-<body>
+<body style="background-color: rgb(245, 228, 220);">
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: block; shape-rendering: auto;" width="100px" height="100px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+    <circle cx="50" cy="50" fill="none" stroke="#f2c2c2" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
+      <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"/>
+    </circle>
+  </svg>
+
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
 
@@ -61,7 +67,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('flutter-first-frame', function () {
-        navigator.serviceWorker.register('flutter_service_worker.js?v=3916098310');
+        navigator.serviceWorker.register('flutter_service_worker.js?v=2119179826');
       });
     }
   </script>
