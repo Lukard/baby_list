@@ -9,9 +9,16 @@ class AuthDataSource {
   Future<bool> isUserLoggedIn() {
     if (_auth.currentUser != null) return Future<bool>.value(true);
 
-    return _auth.authStateChanges().first.then(
+    return _auth
+        .authStateChanges()
+        .first
+        .then(
           (user) => user != null,
-          onError: () => false,
+          onError: (error) => false,
+        )
+        .timeout(
+          Duration(seconds: 1),
+          onTimeout: () => false,
         );
   }
 
