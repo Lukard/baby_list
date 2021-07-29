@@ -15,6 +15,7 @@ class Frame extends StatelessWidget {
       key: getIt<ErrorNotifier>().generateNewKey(),
       child: Scaffold(
         extendBodyBehindAppBar: true,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,

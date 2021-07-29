@@ -4,4 +4,5 @@ part of '../welcome_bloc.dart';
 class WelcomeEvent with _$WelcomeEvent {
   const factory WelcomeEvent.nameTyped(String name) = _NameTyped;
   const factory WelcomeEvent.submit() = _Submit;
+  const factory WelcomeEvent.signup() = _SignUp;
 }

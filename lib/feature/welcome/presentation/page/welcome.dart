@@ -40,6 +40,13 @@ class Welcome extends StatelessWidget {
                   );
                 },
               ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: StadiumButton(
+                  text: 'Registrarme',
+                  onPressed: () => bloc.add(WelcomeEvent.signup()),
+                ),
+              ),
             ],
           ),
         ),

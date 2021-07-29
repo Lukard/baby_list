@@ -24,17 +24,22 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
     WelcomeEvent event,
   ) async* {
     yield* event.when(
-      nameTyped: (name) async* {
-        this.name = name;
-        yield name.isEmpty ? _NonAbleToSubmit() : _AbleToSubmit();
-      },
-      submit: () => _authDataSource.anonymousLogin(name).asyncMap((_) {
-        _navigatorKey.currentState?.pushNamedAndRemoveUntil(
-          NavigationPath.Loby,
-          (route) => false,
-        );
-        return _UserLoggedIn(name);
-      }),
-    );
+        nameTyped: (name) async* {
+          this.name = name;
+          yield name.isEmpty ? _NonAbleToSubmit() : _AbleToSubmit();
+        },
+        submit: () => _authDataSource.anonymousLogin(name).asyncMap((_) {
+              _navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                NavigationPath.Loby,
+                (route) => false,
+              );
+              return _UserLoggedIn(name);
+            }),
+        signup: () async* {
+          _navigatorKey.currentState?.pushNamedAndRemoveUntil(
+            NavigationPath.SignUp,
+            (route) => false,
+          );
+        });
   }
 }

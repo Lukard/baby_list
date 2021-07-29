@@ -4,4 +4,5 @@ class NavigationPath {
   static const String Loby = '/loby';
   static const String List = '/list';
   static const String Detail = '/detail';
+  static const String SignUp = '/signup';
 }

@@ -7,5 +7,5 @@ targets:
       injectable_generator:injectable_builder:
         options:
           auto_register: true
-          class_name_pattern: "DataSource$|Bloc$|Cubit$"
-          file_name_pattern: "_data_source$|_bloc$|_cubit$"
+          class_name_pattern: "DataSource$|UseCase$|Navigator$|Bloc$|Cubit$"
+          file_name_pattern: "_data_source$|_use_case$|_navigator$|_bloc$|_cubit$"
